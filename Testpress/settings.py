@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-y&abvltu7jmh(@h+xjhdds1v-y+j=hu@9^7b8jvw$+^3yg3fiz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','testpressproject.herokuapp.com','AnandBabu.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1','testpressproject.herokuapp.com']
 
 
 # Application definition
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'Testpress.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
