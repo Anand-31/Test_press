@@ -1,0 +1,79 @@
+{% extends 'index.html' %}
+{% block content %}
+<section class="quiz-bg">
+    <div class="container-fluid">
+        <div class="header">
+            <h1>Test Quiz</h1>
+        </div>
+        <div class="container" id="instruction">
+            <h3>Instruction:</h3>
+            <p>1. Total number of question: 10</p>
+            <p>2. Once you Select your answer, you can't reselect.</p>
+            <p>3. After <span class="bolder">Submit</span> you must click <span class="bolder">End Quiz</span> button </p>
+            <button class="start_quiz">Start Quiz</button>
+        </div>
+
+        <div class="container" id="quiz">
+            <div class="quiz-head">
+                <h3>Questions <span id="number"></span> to 10</h3>
+                <span id="time"></span>
+            </div>
+            <div class="mt-3">
+                <p id="question"></p>
+                <p id="answer" class="answer_list"></p>
+                <p class="correct1"><span class="answer1">Correct Answer: </span><span id="correct"></span></p>
+                <div class="indicator">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <button id="button" onclick="Next()">Next</button>
+                    <button class="submit" onclick="Submit()">Submit</button>                        
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="submit_info">
+            <div class="submit_head">
+                <form method="POST">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <th>Name:</th>
+                            <td><input type="text" name="user_name" id="user"></td>
+                        </tr>
+                        <tr>
+                            <th>Total no. of Questions</th>
+                            <td><input type="text" name="total_question" id="total" value="10"></td>
+                        </tr>
+                        <tr>
+                            <th>Correct Answer:</th>
+                            <td><input type="text" name="correct_answer" id="correct_ans"></td>
+                        </tr>
+                        <tr>
+                            <th>Wrong Answer:</th>
+                            <td><input type="text" name="wrong_answer" id="wrong"></td>
+                        </tr>
+                        <tr>
+                            <th>Pass/Fail</th>
+                            <td><input type="text" name="message" id="message"></td>
+                        </tr>
+                        <tr>
+                            <th>Time Taken:</th>
+                            <td><input type="text" name="time_taken" id="time_taken"></td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="ok">End Quiz</button>
+                </form>
+            </div>
+        </div>
+    
+    </div>
+</section>
+{% endblock %}

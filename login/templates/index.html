@@ -1,0 +1,79 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Quiz</title>
+    <link rel="shortcut icon" href="../static/images/favicon.png" type="image/x-icon">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script src="{% static 'script.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".submit").hide();
+        $("#quiz").hide();
+        $("#submit_info").hide();
+        $(".correct1").hide();
+        $(".start_quiz").click(function(){
+            $(".quiz-bg").css("height","auto")
+            $(".quiz-bg").css("padding-bottom","120px")
+            let dt = new Date(new Date().setTime(0));
+            let ctime = dt.getTime();
+            let seconds = Math.floor((ctime % (1000 * 60))/ 1000);
+            let minutes = Math.floor((ctime % (1000 * 60 * 60))/( 1000 * 60));
+            let time = 0;
+            let mytime = setInterval(function(){
+                    time++; 
+                    if(seconds < 59) {
+                        seconds++;
+                    } else {
+                        seconds = 0; 
+                        minutes++;
+                    }
+                    let formatted_sec = seconds < 10 ? `0${seconds}`: `${seconds}`;
+                    let formatted_min = minutes < 10 ? `0${minutes}`: `${minutes}`
+                    document.getElementById("time").innerHTML = `${formatted_min} : ${formatted_sec}`;
+                }, 1000);
+            $("#quiz").slideDown(1000);
+            $("#instruction").hide();
+            $("#submit_info").hide();
+            $(".submit").click(function(){
+                $("#quiz").hide();
+                $("#submit_info").slideDown();
+                sessionStorage.setItem("time", `${minutes}: ${seconds}`)
+                var timing = sessionStorage.getItem("time")
+                document.getElementById("time_taken").value = timing
+            })
+        });
+    });
+</script>
+</head>
+<body>
+    {% block content %}
+        <div class="main pt-5 pb-5">
+            <div class="main-head">
+                <div class="card">
+                    <div class="card-heading">
+                        <h2 class="title">Welcome to Testpress</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <label class="name">Name</label>
+                                <input type="text" name="name" id="user_name">
+                            </div>                            
+                            <div class="button">
+                                <button type="submit" class="btn" onclick="start()">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>
